@@ -1,13 +1,15 @@
 ## About
-This repository provides instructions to install Hail. These instructions were adapted from those
+This repository provides instructions to install Hail on a Databricks Cluster. These instructions were adapted from those
 on the Hail site though needed some modifications for Ubuntu 20.
 
 ## Known Issues
 
 ## Hail Environment Warning (Ignore)
 
-* You need to explicitly invoke hail's init with the spark context. Do this before you 
+* You need to explicitly invoke hail's init with the spark context. Do this before you use the hail methods.
 * After this is setup, with the Hail dependencies added via Databricks library config, we still get a warning: ![hail-warning](./images/hail-warning.png)
+
+I'll see if we can get some feedback how to get this warning turned off.
 
 ## Instructions
 
@@ -61,7 +63,7 @@ Next add the following Dependencies as "DBFS/ADLS" libraries:
 
 
 ### Step 4 - Testing
-Once your new Hail cluster is up, you can now run the following notebook to test (make sure to select the right cluster): "./notebooks/Test Hail"
+Once your new Hail cluster is up, you can now run the following notebook to test (make sure to select the right cluster): "./notebooks/Run Hail"
 
 You should see the following:
 
