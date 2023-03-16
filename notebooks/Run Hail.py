@@ -23,10 +23,6 @@ mt = mt.annotate_cols(drinks_coffee = hl.rand_bool(0.33))
 
 # COMMAND ----------
 
-mt
-
-# COMMAND ----------
-
 gwas = hl.linear_regression_rows(y=mt.drinks_coffee,
        x=mt.GT.n_alt_alleles(),
        covariates=[1.0])
