@@ -13,13 +13,16 @@ I'll see if we can get some feedback how to get this warning turned off.
 
 ## Instructions
 
-### Step 1 - Build Hail
+### Step 1 - Import the Repo
+Import this repository into your Databricks Workspace.
 
-This step will use a generic DBR 11.3 LTS cluster (single node) to build
+### Step 2 - Build Hail
+
+This step will use a generic DBR 12.2 LTS cluster (single node) to build
 the core hail artifacts needed for our Hail cluster. This step can take quite a while
 which is why we do it once so we don't have to do it again.
 
-1. Create a Single Node DBR 11.3 LTS cluster. It can be a low spec (e.g. 14GB 4 cores)
+1. Create a Single Node DBR 12.2 LTS cluster. It can be a low spec (e.g. 14GB 4 cores)
 2. Run the notebook found in "./notebooks/Build Hail"
 
 Once this is done, you will have the hail artifacts installed to DBFS in the path "dbfs:/hail". The two artifacts will be installed to:
@@ -27,13 +30,13 @@ Once this is done, you will have the hail artifacts installed to DBFS in the pat
 * dbfs:/hail/hail-all-spark.jar
 * dbfs:/hail/hail-0.2.111-py3-none-any.whl
 
-### Step 2 - Install init Script
+### Step 3 - Install init Script
 
 Run the notebook found here to setup the init script for the cluster which installs the required dependencies to run Hail: "./notebooks/Setup Init Script".
 
 This will install the cluster init script to "dbfs:/scripts/hail-init.sh" 
 
-### Step 3 - Setup Hail Cluster
+### Step 4 - Setup Hail Cluster
 Create a new cluster (multi or single node) to run Hail.
 
 #### Setup Spark Config
@@ -60,13 +63,10 @@ Next add the following Dependencies as "DBFS/ADLS" libraries:
 
 ![hail-libraries](./images/hail-libraries.png)
 
-
-
-### Step 4 - Testing
+### Step 5 - Testing
 Once your new Hail cluster is up, you can now run the following notebook to test (make sure to select the right cluster): "./notebooks/Run Hail"
 
 You should see the following:
 
-
-
+![hail-run](./images/hail-run.png)
 
