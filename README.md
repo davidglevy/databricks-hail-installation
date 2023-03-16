@@ -4,12 +4,9 @@ on the Hail site though needed some modifications for Ubuntu 20.
 
 ## Known Issues
 
-## Hail Environment Warning (Ignore)
+You need to explicitly invoke hail's init like so: `hl.init(sc=sc,idempotent=True, quiet=True, skip_logging_configuration=True)`.
 
-* You need to explicitly invoke hail's init with the spark context. Do this before you use the hail methods.
-* After this is setup, with the Hail dependencies added via Databricks library config, we still get a warning: ![hail-warning](./images/hail-warning.png)
-
-I'll see if we can get some feedback how to get this warning turned off.
+Do this before you use the hail methods
 
 ## Instructions
 

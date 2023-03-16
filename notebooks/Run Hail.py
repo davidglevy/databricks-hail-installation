@@ -10,7 +10,7 @@ import hail as hl
 
 # COMMAND ----------
 
-hl.init(sc=sc,log="/var/log/hail",tmp_dir="/tmp")
+hl.init(sc=sc,idempotent=True, quiet=True, skip_logging_configuration=True)
 
 # COMMAND ----------
 
@@ -19,6 +19,14 @@ mt = hl.balding_nichols_model(n_populations=3,
     n_variants=500_000,
     n_partitions=32)
 mt = mt.annotate_cols(drinks_coffee = hl.rand_bool(0.33))
+
+
+# COMMAND ----------
+
+mt
+
+# COMMAND ----------
+
 gwas = hl.linear_regression_rows(y=mt.drinks_coffee,
        x=mt.GT.n_alt_alleles(),
        covariates=[1.0])
