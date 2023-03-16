@@ -41,6 +41,8 @@ We need to ensure that the following Spark configuration is set.
 
 * spark.kryo.registrator is.hail.kryo.HailKryoRegistrator
 * spark.serializer org.apache.spark.serializer.KryoSerializer
+* spark.driver.extraClassPath /dbfs/hail/hail-all-spark.jar
+* spark.executor.extraClassPath /dbfs/hail/hail-all-spark.jar
 
 The Hail documentation asks for more however these are obsoleted by the cluster libraries we add.
 

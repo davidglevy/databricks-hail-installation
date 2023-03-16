@@ -17,7 +17,7 @@ hl.init(sc=sc,idempotent=True, quiet=True, skip_logging_configuration=True)
 mt = hl.balding_nichols_model(n_populations=3,
     n_samples=500,
     n_variants=500_000,
-    n_partitions=32)
+    n_partitions=3)
 mt = mt.annotate_cols(drinks_coffee = hl.rand_bool(0.33))
 
 
