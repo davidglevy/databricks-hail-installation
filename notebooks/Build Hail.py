@@ -24,6 +24,10 @@
 
 # COMMAND ----------
 
+dbutils.widgets.text("hail_tag", "0.2.112", "Hail Git Tag")
+
+# COMMAND ----------
+
 # MAGIC %sh
 # MAGIC apt-get update
 
@@ -93,6 +97,23 @@
 
 # COMMAND ----------
 
+hail_tag = dbutils.widgets.get("hail_tag")
+tag = "tags/" + hail_tag
+print(tag)
+
+with open('/tmp/hail_tag.txt', 'w') as the_file:
+    the_file.write(tag)
+
+# COMMAND ----------
+
+# MAGIC %sh
+# MAGIC HAIL_TAG=`cat /tmp/hail_tag.txt`
+# MAGIC echo $HAIL_TAG
+# MAGIC cd /tmp/hail
+# MAGIC git checkout $HAIL_TAG
+
+# COMMAND ----------
+
 # MAGIC %sh
 # MAGIC JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 # MAGIC PATH=$JAVA_HOME/bin/java:$PATH
@@ -103,7 +124,28 @@
 
 # COMMAND ----------
 
-# MAGIC %sh
-# MAGIC cd /tmp/hail
-# MAGIC cp ./hail/build/libs/hail-all-spark.jar /dbfs/hail/hail-all-spark.jar
-# MAGIC cp ./hail/build/deploy/dist/hail-0.2.112-py3-none-any.whl /dbfs/hail/hail-0.2.111-py3-none-any.whl
+dbutils.fs.ls("/hail")
+
+# COMMAND ----------
+
+dbutils.fs.rm("/hail", True)
+
+# COMMAND ----------
+
+base_path = "file:/tmp/hail/hail/build/"
+save_path = "dbfs:/hail/"
+
+# TODO Put the hail_tag in the dest dir for the JAR/Wheel to ensure seperate artifact locations 
+
+jar_file = "hail-all-spark.jar"
+hail_spark_jar_path = base_path + "libs/" + jar_file
+dest_spark_jar_path = save_path + jar_file
+dbutils.fs.cp(hail_spark_jar_path, dest_spark_jar_path)
+
+# COMMAND ----------
+
+wheel_file = "hail-" + hail_tag + "-py3-none-any.whl"
+hail_wheel_path = base_path + "deploy/dist/" + wheel_file
+dest_wheel_path = save_path + wheel_file
+dbutils.fs.cp(hail_wheel_path, dest_wheel_path)
+

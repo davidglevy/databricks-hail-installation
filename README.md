@@ -4,9 +4,9 @@ on the Hail site though needed some modifications for Ubuntu 20.
 
 ## Known Issues
 
-You need to explicitly invoke hail's init like so: `hl.init(sc=sc,idempotent=True, quiet=True, skip_logging_configuration=True)`.
+You need to explicitly invoke hail's init like so: `hl.init(sc=sc,idempotent=True, quiet=True, skip_logging_configuration=True)`. Do this before you use the hail methods
 
-Do this before you use the hail methods
+Currently this build assumes 1 version of Hail per workspace, we'll later build seperate artifact locations to enable multiple versions.
 
 ## Instructions
 
@@ -14,6 +14,8 @@ Do this before you use the hail methods
 Import this repository into your Databricks Workspace.
 
 ### Step 2 - Build Hail
+
+Please select your preferred version of Hail, default is "0.2.112". Changing this will affect some of the paths.
 
 This step will use a generic DBR 12.2 LTS cluster (single node) to build
 the core hail artifacts needed for our Hail cluster. This step can take quite a while
@@ -25,7 +27,7 @@ which is why we do it once so we don't have to do it again.
 Once this is done, you will have the hail artifacts installed to DBFS in the path "dbfs:/hail". The two artifacts will be installed to:
 
 * dbfs:/hail/hail-all-spark.jar
-* dbfs:/hail/hail-0.2.111-py3-none-any.whl
+* dbfs:/hail/hail-HAIL_TAG-py3-none-any.whl
 
 ### Step 3 - Install init Script
 
@@ -58,7 +60,7 @@ Once you have done this, you can create the cluster, libraries are added after t
 #### Setup Cluster Libraries
 Next add the following Dependencies as "DBFS/ADLS" libraries:
 * Jar - location "dbfs:/hail/hail-all-spark.jar"
-* Wheel - location "dbfs:/hail/hail-0.2.111-py3-none-any.whl"
+* Wheel - location "dbfs:/hail/hail-HAIL_TAG-py3-none-any.whl"
 
 ![hail-libraries](./images/hail-libraries.png)
 
