@@ -1,7 +1,7 @@
 # Databricks notebook source
 import hail as hl
 
-hl.init(sc=sc)
+hl.init(sc=sc, quiet=True)
 
 mt = hl.balding_nichols_model(n_populations=3,
                               n_samples=500,

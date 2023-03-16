@@ -1,14 +1,8 @@
 # Databricks notebook source
-# MAGIC %pip install hail
-
-# COMMAND ----------
-
-# MAGIC %sh
-# MAGIC apt-get install -y libopenblas-base liblapack3
-
-# COMMAND ----------
-
 import hail as hl
+
+hl.init(sc=sc)
+
 mt = hl.balding_nichols_model(n_populations=3,
                               n_samples=500,
                               n_variants=500_000,
